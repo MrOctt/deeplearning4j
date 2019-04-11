@@ -935,7 +935,7 @@ public class TransformOpValidation extends BaseOpValidation {
                     break;
                 case 69:
                     t = sd.rank(in).castTo(DataType.DOUBLE);
-                    tc.expectedOutput(t.getVarName(), Nd4j.create(new double[]{ia.rank()})).gradientCheck(false);
+                    tc.expectedOutput(t.getVarName(), Nd4j.scalar((double)ia.rank())).gradientCheck(false);
                     break;
                 case 70:
                     t = sd.onesLike(in);
@@ -1203,7 +1203,7 @@ public class TransformOpValidation extends BaseOpValidation {
             String msg = "test: " + i + " - " + name;
             log.info("***** Starting test: {} *****", msg);
 
-            SDVariable loss = sd.mean("loss", t);
+            SDVariable loss = sd.mean("loss", t.castTo(DataType.DOUBLE));
 
             sd.associateArrayWithVariable(ia, in1);
             sd.associateArrayWithVariable(ib, in2);
